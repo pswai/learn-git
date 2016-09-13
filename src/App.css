@@ -1,0 +1,13 @@
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+body *,
+body *:before,
+body *:after {
+  box-sizing: inherit;
+}
