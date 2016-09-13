@@ -3,9 +3,15 @@ import { StyleSheet, css } from 'aphrodite';
 
 class GameCell extends Component {
   render() {
-    return (
-      <td className={css(styles.cell)}>{this.props.cell}</td>
-    );
+    const {isOpened, cell} = this.props;
+
+    if (isOpened) {
+      return (
+        <td className={css(styles.cell)}>{cell}</td>
+      );
+    } else {
+      return <td className={css(styles.hiddenCell)}/>;
+    }
   }
 }
 
@@ -15,5 +21,9 @@ const styles = StyleSheet.create({
   cell: {
     backgroundColor: '#fff',
     textAlign: 'center'
+  },
+
+  hiddenCell: {
+    backgroundColor: '#c0d5e4'
   }
 });

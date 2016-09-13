@@ -6,7 +6,27 @@ import Terminal from './Terminal';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.updateCommand = this.updateCommand.bind(this);
+
+    this.state = {
+      commands: ['right', 'right']
+    };
+  }
+
+  updateCommand(commands) {
+    let newState = Object.assign({}, this.state, {
+      commands: commands
+    });
+
+    this.setState(newState);
+  }
+
   render() {
+    const {commands} = this.state;
+
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.topRow)}>
@@ -14,7 +34,7 @@ class App extends Component {
             <GameBoard/>
           </div>
           <div className={css(styles.commandListColumn)}>
-            <CommandList/>
+            <CommandList commands={commands} onChange={this.updateCommand}/>
           </div>
         </div>
 
@@ -51,11 +71,13 @@ const styles = StyleSheet.create({
 
   boardColumn: {
     flexGrow: 3,
+    flexBasis: 0,
     padding: '5px'
   },
 
   commandListColumn: {
     flexGrow: 1,
+    flexBasis: 0,
     padding: '5px'
   },
 
