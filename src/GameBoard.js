@@ -29,6 +29,7 @@ class GameBoard extends Component {
     const cellMap = GAME_MAP.map((row, rowIndex) => {
       return row.map((cell, cellIndex) => ({
         value: cell,
+        isActive: false,
         isOpened: (
           (rowIndex === START_ROW && cellIndex === START_COL) ||
           (rowIndex === END_ROW && cellIndex === END_COL)
@@ -36,7 +37,7 @@ class GameBoard extends Component {
       }));
     });
 
-    // Update states
+    // Walk map
     this.props.commands.forEach(command => {
       switch (command) {
         case 'left':
@@ -58,6 +59,9 @@ class GameBoard extends Component {
 
       cellMap[currentRow][currentCol].isOpened = true;
     });
+
+    // Mark current cell
+    cellMap[currentRow][currentCol].isActive = true;
 
     return cellMap;
   }
