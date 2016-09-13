@@ -3,14 +3,14 @@ import { StyleSheet, css } from 'aphrodite';
 
 class GameCell extends Component {
   render() {
-    const {isOpened, cell} = this.props;
+    const {cell} = this.props;
 
-    if (isOpened) {
+    if (cell.isOpened) {
       return (
-        <td className={css(styles.cell)}>{cell}</td>
+        <td className={css(styles.cell)}>{cell.value}</td>
       );
     } else {
-      return <td className={css(styles.hiddenCell)}/>;
+      return <td className={css(styles.hiddenCell)}>&nbsp;</td>;
     }
   }
 }

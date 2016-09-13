@@ -9,20 +9,66 @@ const GAME_MAP = [
   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
   ['Start', 1, 2, 3, 4, 5, 6, 7, 8, 9]
 ];
-
-const isCellOpened = GAME_MAP.map(row => row.map(() => false));
-isCellOpened[GAME_MAP.length - 1][0] = true;
-isCellOpened[0][GAME_MAP[0].length - 1] = true;
+const START_ROW = GAME_MAP.length - 1;
+const START_COL = 0;
+const END_ROW = 0;
+const END_COL = GAME_MAP[0].length - 1;
 
 class GameBoard extends Component {
-  renderGameCells(gameMap) {
-    return gameMap.map((row, rowIndex) => {
+  constructor(props) {
+    super(props);
+
+    this.buildCellMap = this.buildCellMap.bind(this);
+  }
+
+  buildCellMap() {
+    let currentRow = START_ROW;
+    let currentCol = START_COL;
+
+    // Starting map
+    const cellMap = GAME_MAP.map((row, rowIndex) => {
+      return row.map((cell, cellIndex) => ({
+        value: cell,
+        isOpened: (
+          (rowIndex === START_ROW && cellIndex === START_COL) ||
+          (rowIndex === END_ROW && cellIndex === END_COL)
+        )
+      }));
+    });
+
+    // Update states
+    this.props.commands.forEach(command => {
+      switch (command) {
+        case 'left':
+          currentCol--;
+          break;
+
+        case 'right':
+          currentCol++;
+          break;
+
+        case 'up':
+          currentRow--;
+          break;
+
+        case 'down':
+          currentRow++;
+          break;
+      }
+
+      cellMap[currentRow][currentCol].isOpened = true;
+    });
+
+    return cellMap;
+  }
+
+  renderGameCells(cellMap) {
+    return cellMap.map((row, rowIndex) => {
       return (
         <tr key={rowIndex}>
           {row.map((cell, cellIndex) => (
             <GameCell
               cell={cell}
-              isOpened={isCellOpened[rowIndex][cellIndex]}
               key={cellIndex}
             />
           ))}
@@ -32,10 +78,12 @@ class GameBoard extends Component {
   }
 
   render() {
+    const cellMap = this.buildCellMap();
+
     return (
       <table className={css(styles.gameBoard)}>
         <tbody>
-        {this.renderGameCells(GAME_MAP)}
+        {this.renderGameCells(cellMap)}
         </tbody>
       </table>
     );

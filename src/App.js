@@ -31,7 +31,7 @@ class App extends Component {
       <div className={css(styles.container)}>
         <div className={css(styles.topRow)}>
           <div className={css(styles.boardColumn)}>
-            <GameBoard/>
+            <GameBoard commands={commands}/>
           </div>
           <div className={css(styles.commandListColumn)}>
             <CommandList commands={commands} onChange={this.updateCommand}/>
