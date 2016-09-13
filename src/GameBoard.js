@@ -41,20 +41,39 @@ class GameBoard extends Component {
     this.props.commands.forEach(command => {
       switch (command) {
         case 'left':
-          currentCol--;
+          if (currentCol > 0) {
+            currentCol--;
+          } else {
+            alert('Out of bound!');
+          }
           break;
 
         case 'right':
-          currentCol++;
+          if (currentCol < GAME_MAP[0].length - 1) {
+            currentCol++;
+          } else {
+            alert('Out of bound!');
+          }
           break;
 
         case 'up':
-          currentRow--;
+          if (currentRow > 0) {
+            currentRow--;
+          } else {
+            alert('Out of bound!');
+          }
           break;
 
         case 'down':
-          currentRow++;
+          if (currentRow < GAME_MAP.length - 1) {
+            currentRow++;
+          } else {
+            alert('Out of bound!');
+          }
           break;
+
+        default:
+          alert(`Invalid command: ${command}`);
       }
 
       cellMap[currentRow][currentCol].isOpened = true;

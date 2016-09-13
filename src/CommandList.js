@@ -6,6 +6,7 @@ class CommandList extends Component {
     super(props);
 
     this.addCommand = this.addCommand.bind(this);
+    this.onManualChange = this.onManualChange.bind(this);
 
     this.goLeft = () => this.addCommand('left');
     this.goRight = () => this.addCommand('right');
@@ -20,6 +21,15 @@ class CommandList extends Component {
     this.props.onChange(newList);
   };
 
+  onManualChange(e) {
+    let source = e.target.value;
+
+    if (source.slice(-1) === ';') {
+      let newList = source.slice(0, -1).split(';').map(command => command.trim());
+      this.props.onChange(newList);
+    }
+  }
+
   render() {
     const {commands} = this.props;
     let value = commands.join(';\n');
@@ -31,8 +41,8 @@ class CommandList extends Component {
       <div className={css(styles.commandList)}>
         <textarea
           className={css(styles.textarea)}
-          readOnly="readOnly"
-          value={value}
+          onChange={this.onManualChange}
+          defaultValue={value}
         />
 
         <div className={css(styles.inputArea)}>
