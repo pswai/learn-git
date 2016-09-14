@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import TerminalInput from './TerminalInput';
+import TerminalOutput from './TerminalOutput';
 
 class Terminal extends Component {
   render() {
     return (
-      <div className={css(styles.terminal)}>Terminal</div>
+      <div className={css(styles.terminal)}>
+        <TerminalInput/>
+        <TerminalOutput text="lalala"/>
+      </div>
     );
   }
 }
@@ -16,9 +21,10 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     fontFamily: 'Menlo, Consolas, San-Serif',
-    fontSize: '11px',
+    fontSize: '12px',
     color: '#fff',
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    padding: '10px'
+    padding: '10px',
+    overflow: 'auto'
   }
 });
