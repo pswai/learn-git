@@ -1,5 +1,13 @@
 export function executeShell(command) {
-  return new Promise((resolve, reject) => {
-    resolve('got it');
-  });
+  return fetch('/api/shell', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      command: command
+    })
+  })
+    .then(response => response.json());
 }

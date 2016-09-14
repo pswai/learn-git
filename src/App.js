@@ -11,9 +11,11 @@ class App extends Component {
     super(props);
 
     this.updateCommand = this.updateCommand.bind(this);
+    this.executeShell = this.executeShell.bind(this);
 
     this.state = {
-      commands: ['right', 'right']
+      commands: ['right', 'right'],
+      terminalCommands: []
     };
   }
 
@@ -25,8 +27,28 @@ class App extends Component {
     this.setState(newState);
   }
 
+  executeShell(command) {
+    api
+      .executeShell(command)
+      .then(({stdout, stderr}) => {
+        let newTerminalCommands = this.state.terminalCommands.slice();
+        newTerminalCommands.push({
+          value: command,
+          isExecuted: true,
+          stdout,
+          stderr
+        });
+
+        let newState = Object.assign({}, this.state, {
+          terminalCommands: newTerminalCommands
+        });
+
+        this.setState(newState);
+      });
+  }
+
   render() {
-    const {commands} = this.state;
+    const {commands, terminalCommands} = this.state;
 
     return (
       <div className={css(styles.container)}>
@@ -41,7 +63,7 @@ class App extends Component {
 
         <div className={css(styles.bottomRow)}>
           <div className={css(styles.terminalContainer)}>
-            <Terminal/>
+            <Terminal commands={terminalCommands} executeShell={this.executeShell}/>
           </div>
         </div>
       </div>
@@ -68,7 +90,8 @@ const styles = StyleSheet.create({
   bottomRow: {
     display: 'flex',
     flexGrow: 1,
-    padding: '5px'
+    padding: '5px',
+    flexBasis: 0
   },
 
   boardColumn: {

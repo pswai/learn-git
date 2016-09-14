@@ -2,6 +2,21 @@ import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
 
 class TerminalInput extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+
+  handleKeyPress(e) {
+    // Handle Enter
+    if (e.which === 13 && !!e.target.value) {
+      this.props.onSubmit(e.target.value);
+
+      e.target.value = '';
+    }
+  }
+
   render() {
     const {command, isExecuted} = this.props;
     const inputProps = {};
@@ -19,10 +34,11 @@ class TerminalInput extends Component {
       <div className={css(styles.terminalInput)}>
         <div className={css(styles.inputIndicator)}>$</div>
         <input
-          type="text"
-          className={css(styles.input)}
-          placeholder="Input your command here"
           {...inputProps}
+          type="text"
+          className={css(styles.input, !isExecuted && styles.activeInput)}
+          placeholder="Input your command here"
+          onKeyPress={this.handleKeyPress}
         />
       </div>
     );
@@ -34,6 +50,10 @@ export default TerminalInput;
 const styles = StyleSheet.create({
   terminalInput: {
     display: 'flex'
+  },
+
+  activeInput: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)'
   },
 
   inputIndicator: {

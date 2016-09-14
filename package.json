@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "aphrodite": "^0.5.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1"
   },
@@ -16,6 +18,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:4001",
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/config/eslint.js"
   }
