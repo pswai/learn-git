@@ -3,6 +3,16 @@ import { StyleSheet, css } from 'aphrodite';
 
 class TerminalInput extends Component {
   render() {
+    const {command, isExecuted} = this.props;
+    const inputProps = {};
+
+    if (command) {
+      inputProps.value = command;
+    }
+    if (isExecuted) {
+      inputProps.disabled = 'disabled';
+    }
+
     return (
       <div className={css(styles.terminalInput)}>
         <div className={css(styles.inputIndicator)}>$</div>
@@ -10,6 +20,7 @@ class TerminalInput extends Component {
           type="text"
           className={css(styles.input)}
           placeholder="Input your command here"
+          {...inputProps}
         />
       </div>
     );

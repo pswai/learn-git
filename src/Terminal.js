@@ -7,7 +7,7 @@ class Terminal extends Component {
   render() {
     return (
       <div className={css(styles.terminal)}>
-        <TerminalInput/>
+        <TerminalInput command="hello"/>
         <TerminalOutput text="lalala"/>
       </div>
     );
