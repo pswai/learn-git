@@ -38,46 +38,43 @@ class GameBoard extends Component {
     });
 
     // Walk map
-    this.props.commands.forEach(command => {
-      switch (command) {
-        case 'left':
-          if (currentCol > 0) {
-            currentCol--;
-          } else {
-            alert('Out of bound!');
-          }
-          break;
+    for (let i = 0; i < this.props.commands.length; ++i) {
+      let command = this.props.commands[i];
 
-        case 'right':
-          if (currentCol < GAME_MAP[0].length - 1) {
-            currentCol++;
-          } else {
-            alert('Out of bound!');
-          }
+      if (command === 'left') {
+        if (currentCol > 0) {
+          currentCol--;
+        } else {
+          alert('Out of bound!');
           break;
-
-        case 'up':
-          if (currentRow > 0) {
-            currentRow--;
-          } else {
-            alert('Out of bound!');
-          }
+        }
+      } else if (command === 'right') {
+        if (currentCol < GAME_MAP[0].length - 1) {
+          currentCol++;
+        } else {
+          alert('Out of bound!');
           break;
-
-        case 'down':
-          if (currentRow < GAME_MAP.length - 1) {
-            currentRow++;
-          } else {
-            alert('Out of bound!');
-          }
+        }
+      } else if (command === 'up') {
+        if (currentRow > 0) {
+          currentRow--;
+        } else {
+          alert('Out of bound!');
           break;
-
-        default:
-          alert(`Invalid command: ${command}`);
+        }
+      } else if (command === 'down') {
+        if (currentRow < GAME_MAP.length - 1) {
+          currentRow++;
+        } else {
+          alert('Out of bound!');
+          break;
+        }
+      } else {
+        alert(`Invalid command: ${command}`);
       }
 
       cellMap[currentRow][currentCol].isOpened = true;
-    });
+    }
 
     // Mark current cell
     cellMap[currentRow][currentCol].isActive = true;
