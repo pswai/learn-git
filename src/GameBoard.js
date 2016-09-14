@@ -6,7 +6,7 @@ const GAME_MAP = [
   [0, 1, 2, 3, 4, 5, 6, 7, 8, 'WIN'],
   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  ['x', 'x', 2, 3, 4, 5, 6, 7, 8, 9],
   ['Start', 1, 2, 3, 4, 5, 6, 7, 8, 9]
 ];
 const START_ROW = GAME_MAP.length - 1;
@@ -25,55 +25,64 @@ class GameBoard extends Component {
     let currentRow = START_ROW;
     let currentCol = START_COL;
 
+    const openAdjacentCell = (row, col) => {
+      try { cellMap[row + 1][col].isOpened = true; } catch (e) {}
+      try { cellMap[row - 1][col].isOpened = true; } catch (e) {}
+      try { cellMap[row][col + 1].isOpened = true; } catch (e) {}
+      try { cellMap[row][col - 1].isOpened = true; } catch (e) {}
+    };
+
     // Starting map
     const cellMap = GAME_MAP.map((row, rowIndex) => {
       return row.map((cell, cellIndex) => ({
         value: cell,
         isActive: false,
+        isValid: (cell !== 'x'),
         isOpened: (
           (rowIndex === START_ROW && cellIndex === START_COL) ||
           (rowIndex === END_ROW && cellIndex === END_COL)
         )
       }));
     });
+    openAdjacentCell(currentRow, currentCol);
 
     // Walk map
     for (let i = 0; i < this.props.commands.length; ++i) {
       let command = this.props.commands[i];
+      let nextRow = currentRow;
+      let nextCol = currentCol;
 
       if (command === 'left') {
-        if (currentCol > 0) {
-          currentCol--;
-        } else {
-          alert('Out of bound!');
-          break;
-        }
+        nextCol--;
       } else if (command === 'right') {
-        if (currentCol < GAME_MAP[0].length - 1) {
-          currentCol++;
-        } else {
-          alert('Out of bound!');
-          break;
-        }
+        nextCol++;
       } else if (command === 'up') {
-        if (currentRow > 0) {
-          currentRow--;
-        } else {
-          alert('Out of bound!');
-          break;
-        }
+        nextRow--;
       } else if (command === 'down') {
-        if (currentRow < GAME_MAP.length - 1) {
-          currentRow++;
-        } else {
-          alert('Out of bound!');
-          break;
-        }
+        nextRow++;
       } else {
         alert(`Invalid command: ${command}`);
+        break;
       }
 
-      cellMap[currentRow][currentCol].isOpened = true;
+      if (
+        (nextRow < 0 || nextRow >= GAME_MAP.length) ||
+        (nextCol < 0 || nextCol >= GAME_MAP[0].length)
+      ) {
+        alert('Out of bound!');
+        break;
+      }
+
+      if (cellMap[nextRow][nextCol].isValid) {
+        currentRow = nextRow;
+        currentCol = nextCol;
+        cellMap[currentRow][currentCol].isOpened = true;
+
+        openAdjacentCell(currentRow, currentCol);
+      } else {
+        alert(`Invalid move from (${currentCol}, ${currentRow}) to (${nextCol}, ${nextRow})`);
+        break;
+      }
     }
 
     // Mark current cell

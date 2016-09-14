@@ -37,7 +37,7 @@ class TerminalInput extends Component {
           {...inputProps}
           type="text"
           className={css(styles.input, !isExecuted && styles.activeInput)}
-          placeholder="Input your command here"
+          placeholder="Input your shell command here"
           onKeyPress={this.handleKeyPress}
         />
       </div>

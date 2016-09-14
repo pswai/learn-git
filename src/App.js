@@ -14,7 +14,7 @@ class App extends Component {
     this.executeShell = this.executeShell.bind(this);
 
     this.state = {
-      commands: ['right', 'right'],
+      commands: [],
       terminalCommands: []
     };
   }
