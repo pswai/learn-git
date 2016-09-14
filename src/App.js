@@ -3,6 +3,7 @@ import { StyleSheet, css } from 'aphrodite';
 import GameBoard from './GameBoard';
 import CommandList from './CommandList';
 import Terminal from './Terminal';
+import * as api from './lib/api';
 import './App.css';
 
 class App extends Component {
@@ -60,7 +61,8 @@ const styles = StyleSheet.create({
 
   topRow: {
     display: 'flex',
-    flexGrow: 2
+    flexGrow: 2,
+    flexBasis: 0
   },
 
   bottomRow: {

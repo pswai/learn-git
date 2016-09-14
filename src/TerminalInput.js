@@ -8,8 +8,10 @@ class TerminalInput extends Component {
 
     if (command) {
       inputProps.value = command;
+      inputProps.readOnly = 'readOnly';
     }
     if (isExecuted) {
+      inputProps.readOnly = 'readOnly';
       inputProps.disabled = 'disabled';
     }
 
