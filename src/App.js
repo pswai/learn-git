@@ -44,6 +44,20 @@ class App extends Component {
         });
 
         this.setState(newState);
+      }, () => {
+        let newTerminalCommands = this.state.terminalCommands.slice();
+        newTerminalCommands.push({
+          value: command,
+          isExecuted: true,
+          stdout: '',
+          stderr: 'Failed to execute command'
+        });
+
+        let newState = Object.assign({}, this.state, {
+          terminalCommands: newTerminalCommands
+        });
+
+        this.setState(newState);
       });
   }
 

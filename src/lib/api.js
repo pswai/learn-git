@@ -9,5 +9,11 @@ export function executeShell(command) {
       command: command
     })
   })
-    .then(response => response.json());
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject();
+      }
+    });
 }
