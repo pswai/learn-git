@@ -5,6 +5,7 @@ import CommandList from './CommandList';
 import Terminal from './Terminal';
 import * as api from './lib/api';
 import './App.css';
+import startingCommand from './save.json';
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class App extends Component {
     this.saveList = this.saveList.bind(this);
 
     this.state = {
-      commands: [],
+      commands: startingCommand,
       terminalCommands: []
     };
   }

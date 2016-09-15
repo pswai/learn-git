@@ -28,7 +28,7 @@ apiRouter
     });
   });
 
-const SAVE_PATH = path.join(__dirname, 'save.txt');
+const SAVE_PATH = path.resolve(__dirname, '..', 'src', 'save.json');
 apiRouter
   .route('/save')
   .get((req, res) => {
