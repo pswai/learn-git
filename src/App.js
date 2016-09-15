@@ -12,11 +12,23 @@ class App extends Component {
 
     this.updateCommand = this.updateCommand.bind(this);
     this.executeShell = this.executeShell.bind(this);
+    this.loadList = this.loadList.bind(this);
+    this.saveList = this.saveList.bind(this);
 
     this.state = {
       commands: [],
       terminalCommands: []
     };
+  }
+
+  loadList() {
+    api
+      .load()
+      .then((commands) => this.updateCommand(commands));
+  }
+
+  saveList(commands) {
+    api.save(commands);
   }
 
   updateCommand(commands) {
@@ -71,7 +83,12 @@ class App extends Component {
             <GameBoard commands={commands}/>
           </div>
           <div className={css(styles.commandListColumn)}>
-            <CommandList commands={commands} onChange={this.updateCommand}/>
+            <CommandList
+              commands={commands}
+              onChange={this.updateCommand}
+              onLoadList={this.loadList}
+              onSaveList={this.saveList}
+            />
           </div>
         </div>
 

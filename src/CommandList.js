@@ -16,6 +16,8 @@ class CommandList extends Component {
     this.goRight = () => this.addCommand('right');
     this.goUp = () => this.addCommand('up');
     this.goDown = () => this.addCommand('down');
+    this.load = () => this.props.onLoadList();
+    this.save = () => this.props.onSaveList(this.props.commands);
   }
 
   componentDidUpdate() {
@@ -71,6 +73,8 @@ class CommandList extends Component {
           <button type="button" onClick={this.goRight}>→</button>
           <button type="button" onClick={this.goUp}>↑</button>
           <button type="button" onClick={this.goDown}>↓</button>
+          <button type="button" onClick={this.load}>LOAD</button>
+          <button type="button" onClick={this.save}>SAVE</button>
         </div>
       </div>
     );
