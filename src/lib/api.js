@@ -37,6 +37,5 @@ export function save(commands) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(commands)
-  })
-    .then(response => response.json());
+  });
 }
