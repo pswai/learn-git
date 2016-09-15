@@ -74,7 +74,7 @@ class CommandList extends Component {
           <button type="button" onClick={this.goUp}>↑</button>
           <button type="button" onClick={this.goDown}>↓</button>
           <button type="button" onClick={this.load}>LOAD</button>
-          <button type="button" onClick={this.save}>SAVE</button>
+          {/*<button type="button" onClick={this.save}>SAVE</button>*/}
         </div>
       </div>
     );
