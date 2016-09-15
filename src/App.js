@@ -14,6 +14,10 @@ class App extends Component {
     this.executeShell = this.executeShell.bind(this);
     this.loadList = this.loadList.bind(this);
     this.saveList = this.saveList.bind(this);
+    this.updateCommandAndSave = commands => {
+      api.save(commands);
+      return this.updateCommand(commands);
+    };
 
     this.state = {
       commands: [],
@@ -89,7 +93,7 @@ class App extends Component {
           <div className={css(styles.commandListColumn)}>
             <CommandList
               commands={commands}
-              onChange={this.updateCommand}
+              onChange={this.updateCommandAndSave}
               onLoadList={this.loadList}
               onSaveList={this.saveList}
             />
