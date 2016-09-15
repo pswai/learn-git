@@ -4,8 +4,8 @@ import GameCell from './GameCell';
 
 const GAME_MAP = [
   ['x', 'x', 'x', 5, 1, 1, 'WIN'],
-  ['x', 'x', 6, 20, 'x', 'x', 'x'],
-  ['x', 'x', 'x', 1, 1, 'x', 'x'],
+  ['x', 'x', 6, 20, 'x', 'x', 1],
+  ['x', 'x', 'x', 1, 1, 'x', 1],
   ['x', 'x', 3, 'x', 3, 1, 100],
   ['Start', 1, 1, 3, 2, 'x', 'x']
 ];
@@ -38,6 +38,7 @@ class GameBoard extends Component {
         value: cell,
         isActive: false,
         isValid: (cell !== 'x'),
+        isOnPath: (rowIndex === START_ROW && cellIndex === START_COL),
         isOpened: (
           (rowIndex === START_ROW && cellIndex === START_COL) ||
           (rowIndex === END_ROW && cellIndex === END_COL)
@@ -77,6 +78,7 @@ class GameBoard extends Component {
         currentRow = nextRow;
         currentCol = nextCol;
         cellMap[currentRow][currentCol].isOpened = true;
+        cellMap[currentRow][currentCol].isOnPath = true;
 
         openAdjacentCell(currentRow, currentCol);
       } else {

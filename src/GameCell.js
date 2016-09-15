@@ -10,6 +10,7 @@ class GameCell extends Component {
         <td
           className={css(
             styles.cell,
+            cell.isOnPath && styles.pathCell,
             cell.isActive && styles.activeCell,
             !cell.isValid && styles.invalidCell
           )}
@@ -27,6 +28,10 @@ const styles = StyleSheet.create({
   cell: {
     backgroundColor: '#fff',
     textAlign: 'center'
+  },
+
+  pathCell: {
+    backgroundColor: '#ccffcc'
   },
 
   activeCell: {
