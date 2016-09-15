@@ -7,7 +7,13 @@ class GameCell extends Component {
 
     if (cell.isOpened) {
       return (
-        <td className={css(styles.cell, cell.isActive && styles.activeCell)}>{cell.value}</td>
+        <td
+          className={css(
+            styles.cell,
+            cell.isActive && styles.activeCell,
+            !cell.isValid && styles.invalidCell
+          )}
+        >{cell.value}</td>
       );
     } else {
       return <td className={css(styles.hiddenCell)}>&nbsp;</td>;
@@ -25,6 +31,10 @@ const styles = StyleSheet.create({
 
   activeCell: {
     backgroundColor: '#99ff99'
+  },
+
+  invalidCell: {
+    backgroundColor: '#ffc7c7'
   },
 
   hiddenCell: {

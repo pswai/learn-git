@@ -3,11 +3,11 @@ import { StyleSheet, css } from 'aphrodite';
 import GameCell from './GameCell';
 
 const GAME_MAP = [
-  [0, 1, 2, 3, 4, 5, 6, 7, 8, 'WIN'],
-  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-  ['x', 'x', 2, 3, 4, 5, 6, 7, 8, 9],
-  ['Start', 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'WIN'],
+  ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+  ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
+  ['x', 'x', 3, 'x', 3, 1, 100, 'x', 'x', 'x'],
+  ['Start', 1, 1, 3, 2, 'x', 'x', 'x', 'x', 'x']
 ];
 const START_ROW = GAME_MAP.length - 1;
 const START_COL = 0;
